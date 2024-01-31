@@ -412,7 +412,7 @@ def calculate_pr_auc(precision_percent, true_positives, total_positives, max_tp,
     sorted_recall = filtered_recall[sorted_indices]
     sorted_precision = filtered_precision[sorted_indices]
 
-    print(sorted_precision, sorted_recall)
+    #print(sorted_precision, sorted_recall)
 
     # Print filtered precision and recall
     #print("Filtered Precision:", filtered_precision)

@@ -3,7 +3,7 @@ source ~/.profile
 
 # Common Configuration
 dir=`pwd`
-version=aletsch-39-split
+version=aletsch
 aletsch=$dir/../programs/$version
 gffcompare=$dir/../programs/gffcompare
 gtfcuff=$dir/../programs/gtfcuff
