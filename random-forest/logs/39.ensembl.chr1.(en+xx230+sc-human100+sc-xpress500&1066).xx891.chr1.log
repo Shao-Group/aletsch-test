@@ -1,0 +1,93 @@
+aletsch-39.ensembl.chr1.(en+xx230+sc-human100+sc-xpress500&1066).joblib
+max_cnt:  13
+Load and Normalize:  PRJNA489891_ensembl_chr1-star (92622, 56)
+Matched
+0    66372
+1    26250
+Name: count, dtype: int64
+Precision: 0.639
+Recall: 0.833
+ROC curve (area = 0.902)
+               TP  Precision
+sample_id                   
+-1            4.0   0.266667
+ 0         1759.0   0.587705
+ 1         1938.0   0.564192
+ 2         1947.0   0.579464
+ 3         1868.0   0.571429
+ 4         1967.0   0.555493
+ 5         2012.0   0.567560
+ 6         1961.0   0.562536
+ 7         1985.0   0.567467
+ 8         1889.0   0.564892
+ 9         1913.0   0.565976
+ 10        2010.0   0.555863
+ 11        1935.0   0.577957
+Meta ROC curve (area = 0.841)
+    Prob  True Positives  Precision  F1 score
+0   0.00            4692       10.1  0.034767
+1   0.05            4685       10.2  0.034768
+2   0.10            4605       11.2  0.034818
+3   0.15            4347       14.5  0.034308
+4   0.20            3986       19.4  0.032684
+5   0.25            3624       25.4  0.030502
+6   0.30            3283       31.8  0.028097
+7   0.35            3010       38.4  0.026038
+8   0.40            2762       44.2  0.024059
+9   0.45            2558       49.8  0.022391
+10  0.50            2360       55.1  0.020734
+11  0.55            2213       60.4  0.019496
+12  0.60            2083       64.7  0.018387
+13  0.65            1949       68.5  0.017232
+14  0.70            1835       73.0  0.016248
+15  0.75            1717       76.5  0.015222
+16  0.80            1601       80.0  0.014209
+17  0.85            1432       82.8  0.012724
+18  0.90            1190       87.0  0.010591
+19  0.95             844       92.6  0.007527
+
+----------transmeta----------
+   true_positives_transmeta  precision_transmeta(%)  true_positives_Aletsch  precision_Aletsch(%)  +(abs,%)  Fscore_transmeta(%)
+0                      2597                    39.2                    2597                  48.9       9.7                  2.3
+1                      2276                    47.1                    2276                  58.2      11.1                  2.0
+   precision_transmeta  true_positives_transmeta  precision_Aletsch  true_positives_Aletsch  +(rlt,%)  Fscore_transmeta(%)
+0                0.392                      2597               39.2                    2976      14.6                  2.3
+1                0.471                      2276               47.1                    2660      16.9                  2.0
+Area under the PR curve: 0.00615446865094289
+Aletsch rpAUC:
+Area under the PR curve: 0.006940707280083097
+
+----------psiclass----------
+   true_positives_psiclass  precision_psiclass(%)  true_positives_Aletsch  precision_Aletsch(%)  +(abs,%)  Fscore_psiclass(%)
+0                     2520                   34.5                    2520                  50.9      16.4                 2.2
+1                     2194                   47.0                    2194                  61.1      14.1                 1.9
+   precision_psiclass  true_positives_psiclass  precision_Aletsch  true_positives_Aletsch  +(rlt,%)  Fscore_psiclass(%)
+0               0.345                     2520               34.5                    3166      25.6                 2.2
+1               0.470                     2194               47.0                    2660      21.2                 1.9
+Area under the PR curve: 0.0026358571070398827
+Aletsch rpAUC:
+Area under the PR curve: 0.003300894256844885
+
+----------st2merge----------
+   true_positives_st2merge  precision_st2merge(%)  true_positives_Aletsch  precision_Aletsch(%)  +(abs,%)  Fscore_st2merge(%)
+0                     2484                   20.2                    2484                  51.8      31.6                 2.1
+1                     2484                   20.2                    2484                  51.8      31.6                 2.1
+   precision_st2merge  true_positives_st2merge  precision_Aletsch  true_positives_Aletsch  +(rlt,%)  Fscore_st2merge(%)
+0               0.202                     2484               20.2                    3927      58.1                 2.1
+1               0.202                     2484               20.2                    3927      58.1                 2.1
+Area under the PR curve: 0.006376497609197873
+Aletsch rpAUC:
+Area under the PR curve: 0.008545604673967533
+
+----------sc2taco----------
+   true_positives_sc2taco  precision_sc2taco(%)  true_positives_Aletsch  precision_Aletsch(%)  +(abs,%)  Fscore_sc2taco(%)
+0                    2161                  33.4                    2161                  62.5      29.1                1.9
+1                    2163                  33.4                    2163                  62.4      29.0                1.9
+   precision_sc2taco  true_positives_sc2taco  precision_Aletsch  true_positives_Aletsch  +(rlt,%)  Fscore_sc2taco(%)
+0              0.334                    2161               33.4                    3202      48.2                1.9
+1              0.334                    2163               33.4                    3202      48.0                1.9
+Area under the PR curve: 0.004569185515499919
+Aletsch rpAUC:
+Area under the PR curve: 0.005922927607320156
+Aletsch pAUC:
+Area under the PR curve: 0.009424810182553945
