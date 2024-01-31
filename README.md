@@ -120,4 +120,4 @@ Go to directory `random-forest` and run `prepare.sh` similar to the scripts in S
 python3 test.py
 ```
 
-Note that basic package `numpy`, `pandas` and `sklearn` should be installed. You may modify the python script tp change the pre-trained model. The output of `test.py` are saved in `your/path/to/random-forest/logs`. All logs of experiments under Ensembl annotation in Aletsch's paper have been saved.
+Note that basic package `numpy`, `pandas` and `sklearn` should be installed. You may modify the python script tp change the pre-trained model. The output of `test.py` are saved in `your/path/to/random-forest/logs`. An example has been saved: `39.ensembl.chr1.(en+xx230+sc-human100+sc-xpress500&1066).sc-human100.other_chrs.log`, which is the result of Aletsch-Chr1 on SC-H1.
