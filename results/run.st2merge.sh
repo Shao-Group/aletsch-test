@@ -42,7 +42,7 @@ display_dataset_choices() {
 
 # Check for required input parameters
 if [ "$#" -lt 2 ]; then
-    echo "Usage: $0 {encode10|xx230|sc-human|sc-mouse|sc-xpress} dataset_index"
+    echo "Usage: $0 {encode10|xx230|sc-human|sc-xpress|xx891|mouse790|sc-mouse} dataset_index"
     echo "For example: $0 xx230 3"
     echo "Dataset Choices:"
     echo "  For encode10(encode10):"

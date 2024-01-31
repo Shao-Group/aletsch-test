@@ -16,7 +16,7 @@ Our experiments involve the following tools. Users need to separately download a
 | [Aletsch](https://github.com/Shao-Group/aletsch)             | v1.1.0  |              Meta Assembler               |
 | [Transmeta](https://github.com/yutingsdu/TransMeta)          |  v.1.0  |              Meta Assembler               |
 | [PsiCLASS](https://github.com/splicebox/PsiCLASS)            | v1.0.3  |              Meta Assembler               |
-| [StringTie2]((https://ccb.jhu.edu/software/stringtie/index.shtml)) | v2.2.1  | Single-sample Assembler + GTF merged tool |
+| [StringTie2](https://ccb.jhu.edu/software/stringtie/index.shtml) | v2.2.1  | Single-sample Assembler + GTF merged tool |
 | [Scallop2](https://github.com/Shao-Group/scallop2)           | v1.1.2  |          Single-sample Assembler          |
 | [TACO](https://tacorna.github.io)                            | v0.7.3  |              GTF merged tool              |
 | [STAR](https://github.com/alexdobin/STAR/tree/master)        | v2.7.11 |              RNA-seq Aligner              |
@@ -47,16 +47,16 @@ You may need to rename some executable files to make sure that all tools can be 
 
 We compare the five methods on eight datasets:
 
-| Name in paper |      Protocol       |                         Accession ID                         |      |
-| :-----------: | :-----------------: | :----------------------------------------------------------: | :--: |
-|     BK-H1     | Illumina paired-end |              Refer to `data/encode10.sra.list`               |      |
-|     BK-H2     | Illumina paired-end |             Refer to `data/PRJNA575230.sra.list`             |      |
-|     SC-H1     |      Smartseq3      | Random 100 cells from HEK293T of  [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |      |
-|     SC-H2     |  Smartseq3-Xpress   | All 1066 cells from run2 of [E-MTAB-11452](http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-11452/) |      |
-|     BK-H3     | Illumina paired-end |             Refer to `data/PRJNA489891.sra.list`             |      |
-|     SC-H3     |      Smartseq3      | Random 92 cells from HEK293T of [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |      |
-|     BK-M1     | Illumina paired-end |             Refer to `data/PRJEB18790.sra.list`              |      |
-|     SC-M1     |      Smartseq3      | All 369 cells from Mouse-Fibroblast of [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |      |
+| Name in paper |      Protocol       |                         Accession ID                         |
+| :-----------: | :-----------------: | :----------------------------------------------------------: |
+|     BK-H1     | Illumina paired-end |              Refer to `data/encode10.sra.list`               |
+|     BK-H2     | Illumina paired-end |             Refer to `data/PRJNA575230.sra.list`             |
+|     SC-H1     |      Smartseq3      | Random 100 cells from HEK293T of  [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
+|     SC-H2     |  Smartseq3-Xpress   | All 1066 cells from run2 of [E-MTAB-11452](http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-11452/) |
+|     BK-H3     | Illumina paired-end |             Refer to `data/PRJNA489891.sra.list`             |
+|     SC-H3     |      Smartseq3      | Random 92 cells from HEK293T of [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
+|     BK-M1     | Illumina paired-end |             Refer to `data/PRJEB18790.sra.list`              |
+|     SC-M1     |      Smartseq3      | All 369 cells from Mouse-Fibroblast of [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
 
 For each sample/cell, we use [STAR](https://github.com/alexdobin/STAR/tree/master) to generate read alignments. For each dataset, generate a list about all paths of  bam files, according to requirements of different meta-assemblers. We provide an example of bam list fed into Aletsch: `data/encode10_ensembl.star.list`. Please prepare all your lists similar to the following:
 
@@ -99,6 +99,14 @@ Dataset Choices:
   4: encode10_refseq_other_chrs
   5: encode10_refseq
   all: submit all choices in this group
+  For xx230(PRJNA575230):
+  0: PRJNA575230_ensembl_chr1
+  1: PRJNA575230_ensembl_other_chrs
+  2: PRJNA575230_ensembl
+  3: PRJNA575230_refseq_chr1
+  4: PRJNA575230_refseq_other_chrs
+  5: PRJNA575230_refseq
+  all: submit all choices in this group
   ...
 ```
 
@@ -106,10 +114,10 @@ Note that `run.stringtie2.sh` should be finished before `run.st2merge.sh` , and 
 
 # Step 4: Test on Aletsch's Pretrained Model and Compare
 
-Go to directory "random-forst" and run `prepare.sh` similar to the scripts in Step3, for example: `./prepare.sh sc-human 2`. Then all Aletsch's feature files will be collected in `your/path/to/random-forest/aletsch`. Run the following command to test and compare results of Aletsch and the other tools:
+Go to directory `random-forest` and run `prepare.sh` similar to the scripts in Step3, for example: `./prepare.sh sc-human 2`. Then all Aletsch's feature files will be collected in `your/path/to/random-forest/aletsch`. Run the following command to test and compare results of Aletsch and the other tools:
 
 ```
 python3 test.py
 ```
 
-Note that basic package `numpy`, `pandas` and `sklearn` should be installed. The output of `test.py` are saved in `your/path/to/random-forest/logs`. All logs under Ensembl annotation have been saved.
+Note that basic package `numpy`, `pandas` and `sklearn` should be installed. You may modify the python script tp change the pre-trained model. The output of `test.py` are saved in `your/path/to/random-forest/logs`. All logs of experiments under Ensembl annotation in Aletsch's paper have been saved.
