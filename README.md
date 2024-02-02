@@ -49,16 +49,16 @@ You may need to rename some of the executable files to match the paths listed ab
 
 We evaluate the performance of the five methods using eight datasets, as outlined below. Each dataset is identified by its unique prefix (used in this repository) and accession ID for reference.
 
-| Name in paper | prefix in test(Ensembl)           |      Protocol       |                         Accession ID                         |
-| :-----------: | --------------------------------- | :-----------------: | :----------------------------------------------------------: |
-|     BK-H1     | **encode10_ensembl**              | Illumina paired-end |              Refer to `data/encode10.sra.list`               |
-|     BK-H2     | **PRJNA575230_ensembl**           | Illumina paired-end |             Refer to `data/PRJNA575230.sra.list`             |
-|     SC-H1     | **smartseq3_ensembl_human_100**   |      Smartseq3      | Random 100 cells from HEK293T of  [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
-|     SC-H2     | **smartseq3_ensembl_xpress_run2** |  Smartseq3-Xpress   | All 1066 cells from PBMCs_run2 of [E-MTAB-11452](https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-11452/sdrf) |
-|     BK-H3     | **PRJNA489891_ensembl**           | Illumina paired-end |             Refer to `data/PRJNA489891.sra.list`             |
-|     SC-H3     | **smartseq3_ensembl_human_92**    |      Smartseq3      | Random 92 cells from HEK293T of [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
-|     BK-M1     | **PRJEB18790_ensembl**            | Illumina paired-end |             Refer to `data/PRJEB18790.sra.list`              |
-|     SC-M1     | **smartseq3_ensembl_mouse**       |      Smartseq3      | All 369 cells from Mouse-Fibroblast of [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
+| Name in paper |      prefix in test(Ensembl)      | Protocol            | Accession ID                                                 |
+| ------------- | :-------------------------------: | ------------------- | ------------------------------------------------------------ |
+| BK-H1         |       **encode10_ensembl**        | Illumina paired-end | Refer to<br /> `data/encode10.sra.list`                      |
+| BK-H2         |      **PRJNA575230_ensembl**      | Illumina paired-end | Refer to<br /> `data/PRJNA575230.sra.list`                   |
+| SC-H1         |  **smartseq3_ensembl_human_100**  | Smartseq3           | Random 100 cells from HEK293T of<br /> [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
+| SC-H2         | **smartseq3_ensembl_xpress_run2** | Smartseq3-Xpress    | All 1066 cells from PBMCs_run2 of<br /> [E-MTAB-11452](https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-11452/sdrf) |
+| BK-H3         |      **PRJNA489891_ensembl**      | Illumina paired-end | Refer to<br /> `data/PRJNA489891.sra.list`                   |
+| SC-H3         |  **smartseq3_ensembl_human_92**   | Smartseq3           | Random 92 cells from HEK293T of<br /> [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
+| BK-M1         |      **PRJEB18790_ensembl**       | Illumina paired-end | Refer to<br /> `data/PRJEB18790.sra.list`                    |
+| SC-M1         |    **smartseq3_ensembl_mouse**    | Smartseq3           | All 369 cells from Mouse-Fibroblast of<br /> [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
 
 Use [STAR](https://github.com/alexdobin/STAR/tree/master) for read alignments for each sample/cell. For every dataset, compile a list of all BAM file paths as required by the different meta-assemblers. Example for Aletsch: `data/encode10_ensembl.star.list`. Your lists should follow this format:
 
