@@ -1,15 +1,10 @@
 # Overview
 
-This repository compares the performance of meta-assembler [**Aletsch**](https://github.com/Shao-Group/aletsch) with two leading meta-assemblers, [TransMeta](https://github.com/yutingsdu/TransMeta), [PsiCLASS](https://github.com/splicebox/PsiCLASS), and two additional meta-assembly pipelines based on single-sample assemblers, [StringTie2-Merge](https://ccb.jhu.edu/software/stringtie/index.shtml) and [Scallop2](https://github.com/Shao-Group/scallop2)+[TACO](https://tacorna.github.io). Here we provide instructions to download and link all necessary tools, prepare input lists for datasets, run all the five tools/pipelines, evaluate output transcripts and reproduce results in Aletsch paper:
-
-1. Download necessary tools (in `program`)
-2. Download datasets and prepare bam lists(in `data`)
-3. Run the methods to produce results(in `results`)
-4. Test Aletsch's pre-trained model and compare results(in `random-forest`)
+This repository is dedicated to comparing the performance of the meta-assembler [**Aletsch**](https://github.com/Shao-Group/aletsch) against two leading meta-assemblers, [TransMeta](https://github.com/yutingsdu/TransMeta), [PsiCLASS](https://github.com/splicebox/PsiCLASS), as well as two meta-assembly pipelines based on single-sample assemblers, [StringTie2-Merge](https://ccb.jhu.edu/software/stringtie/index.shtml) and [Scallop2](https://github.com/Shao-Group/scallop2) combined with [TACO](https://tacorna.github.io). Here we provide instructions for downloading necessary tools, preparing datasets, executing the tools/pipelines, scoring Aletsch's output transcripts, and reproducing the results presented in the Aletsch paper.
 
 # Step 1: Download and Link Tools
 
-Our experiments involve the following tools. Users need to separately download all neccessary tools and link them to the folder `programs` before running experiments.
+Our experiments involve the following tools:
 
 | Tool                                                         | Version |                Description                |
 | ------------------------------------------------------------ | :-----: | :---------------------------------------: |
@@ -23,11 +18,18 @@ Our experiments involve the following tools. Users need to separately download a
 | [GffCompare](https://ccb.jhu.edu/software/stringtie/gffcompare.shtml#gffcompare_dl) | v0.11.2 |      Evaluate assembled transcripts       |
 | [gtfcuff](https://github.com/Kingsford-Group/rnaseqtools)    |    -    |               RNA-seq tool                |
 
-**Step 1.1**: Click above tools and those hyperlinks will navigate users to the homepage of tools. Then please follow the instructions provided in tools' homepages to download and/or compile above tools.
+#### Step 1.1: Download Tools
 
-**Step 1.2**: Please link or copy the executable files to `programs` directory if they are avaliable (aletsch, scallop2, taco_run, stringtie2, STAR, gffcompare, gtfcuff). Otherwise please link the directory here (TransMeta and PsiCLASS).
+* Access the homepages of the respective tools using the links provided above.
 
-Please make sure tools can be called by the following paths:
+- Follow the download and compilation instructions on each tool's homepage.
+
+#### Step 1.2: Link or Copy Executables
+
+- For tools with available executable files, link or copy them to the `programs` directory. This includes `aletsch`, `scallop2`, `taco_run`, `stringtie`, `STAR`, `gffcompare`, and `gtfcuff`.
+- For tools without standalone executables (TransMeta and PsiCLASS), link the entire directory to `programs`.
+
+Ensure the tools are accessible via the following paths:
 
 ```
 your/path/to/programs/aletsch
@@ -41,39 +43,36 @@ your/path/to/programs/gffcomapre
 your/path/to/programs/gtfcuff
 ```
 
-You may need to rename some executable files to make sure that all tools can be called successfully by above paths. 
+You may need to rename some of the executable files to match the paths listed above.
 
 # Step 2: Download Datasets and Align
 
-We compare the five methods on eight datasets:
+We evaluate the performance of the five methods using eight datasets, as outlined below. Each dataset is identified by its unique prefix (used in this repository) and accession ID for reference.
 
-| Name in paper |      Protocol       |                         Accession ID                         |
-| :-----------: | :-----------------: | :----------------------------------------------------------: |
-|     BK-H1     | Illumina paired-end |              Refer to `data/encode10.sra.list`               |
-|     BK-H2     | Illumina paired-end |             Refer to `data/PRJNA575230.sra.list`             |
-|     SC-H1     |      Smartseq3      | Random 100 cells from HEK293T of  [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
-|     SC-H2     |  Smartseq3-Xpress   | All 1066 cells from run2 of [E-MTAB-11452](http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-11452/) |
-|     BK-H3     | Illumina paired-end |             Refer to `data/PRJNA489891.sra.list`             |
-|     SC-H3     |      Smartseq3      | Random 92 cells from HEK293T of [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
-|     BK-M1     | Illumina paired-end |             Refer to `data/PRJEB18790.sra.list`              |
-|     SC-M1     |      Smartseq3      | All 369 cells from Mouse-Fibroblast of [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
+| Name in paper | prefix in test(Ensembl)           |      Protocol       |                         Accession ID                         |
+| :-----------: | --------------------------------- | :-----------------: | :----------------------------------------------------------: |
+|     BK-H1     | **encode10_ensembl**              | Illumina paired-end |              Refer to `data/encode10.sra.list`               |
+|     BK-H2     | **PRJNA575230_ensembl**           | Illumina paired-end |             Refer to `data/PRJNA575230.sra.list`             |
+|     SC-H1     | **smartseq3_ensembl_human_100**   |      Smartseq3      | Random 100 cells from HEK293T of  [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
+|     SC-H2     | **smartseq3_ensembl_xpress_run2** |  Smartseq3-Xpress   | All 1066 cells from PBMCs_run2 of [E-MTAB-11452](https://www.ebi.ac.uk/biostudies/arrayexpress/studies/E-MTAB-11452/sdrf) |
+|     BK-H3     | **PRJNA489891_ensembl**           | Illumina paired-end |             Refer to `data/PRJNA489891.sra.list`             |
+|     SC-H3     | **smartseq3_ensembl_human_92**    |      Smartseq3      | Random 92 cells from HEK293T of [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
+|     BK-M1     | **PRJEB18790_ensembl**            | Illumina paired-end |             Refer to `data/PRJEB18790.sra.list`              |
+|     SC-M1     | **smartseq3_ensembl_mouse**       |      Smartseq3      | All 369 cells from Mouse-Fibroblast of [E-MTAB-8735](https://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-8735) |
 
-For each sample/cell, we use [STAR](https://github.com/alexdobin/STAR/tree/master) to generate read alignments. For each dataset, generate a list about all paths of  bam files, according to requirements of different meta-assemblers. We provide an example of bam list fed into Aletsch: `data/encode10_ensembl.star.list`. Please prepare all your lists similar to the following:
+Use [STAR](https://github.com/alexdobin/STAR/tree/master) for read alignments for each sample/cell. For every dataset, compile a list of all BAM file paths as required by the different meta-assemblers. Example for Aletsch: `data/encode10_ensembl.star.list`. Your lists should follow this format:
 
 ```
 your/path/to/data/encode10_ensembl.star.list
 your/path/to/data/PRJNA575230_ensembl.star.list
-your/path/to/data/smartseq3_ensembl_human.star.list
-your/path/to/data/smartseq3_ensembl_xpress_run2.star.list
 ...
 ```
 
-Besides, we also need the annotation files for evaluation: [Ensembl](http://useast.ensembl.org/Homo_sapiens/Info/Index) and [RefSeq](https://www.ncbi.nlm.nih.gov/datasets/taxonomy/9606/).
+Annotations for evaluation are available from [Ensembl](http://useast.ensembl.org/Homo_sapiens/Info/Index) and [RefSeq](https://www.ncbi.nlm.nih.gov/datasets/taxonomy/9606/).
 
 # Step 3: Run the Methods
 
-Once the datasets and programs are all available, use the following scripts in `results`
-to run the assemblers on the datasets:
+Execute the provided scripts in the `results` directory to run the assemblers:
 
 ```
 ./run.aletsch.sh 
@@ -85,39 +84,31 @@ to run the assemblers on the datasets:
 ./run.sc2taco.sh
 ```
 
-For each script, you can choose different lists fed into the assembler, for example:
+Each script accepts different list arguments for the assembler. Example usage:
 
 ```
-Usage: ./run.aletsch.sh {encode10|xx230|sc-human|sc-mouse|sc-xpress} dataset_index
+Usage: ./run.aletsch.sh {encode10|xx230|sc-human|sc-xpress|xx891|mouse790|sc-mouse} dataset_index
 For example: ./run.aletsch.sh xx230 3
-Dataset Choices:
-  For encode10(encode10):
-  0: encode10_ensembl_chr1
-  1: encode10_ensembl_other_chrs
-  2: encode10_ensembl
-  3: encode10_refseq_chr1
-  4: encode10_refseq_other_chrs
-  5: encode10_refseq
-  all: submit all choices in this group
-  For xx230(PRJNA575230):
-  0: PRJNA575230_ensembl_chr1
-  1: PRJNA575230_ensembl_other_chrs
-  2: PRJNA575230_ensembl
-  3: PRJNA575230_refseq_chr1
-  4: PRJNA575230_refseq_other_chrs
-  5: PRJNA575230_refseq
-  all: submit all choices in this group
-  ...
 ```
 
-Note that `run.stringtie2.sh` should be finished before `run.st2merge.sh` , and `run.scallop.sh` should be finished before `run.sc2taco.sh`. You can modify the scripts to specify how many CPU cores you want to use to run the jobs in parallel. 
-
-# Step 4: Test on Aletsch's Pretrained Model and Compare
-
-Go to directory `random-forest` and run `prepare.sh` similar to the scripts in Step3, for example: `./prepare.sh sc-human 2`. Then all Aletsch's feature files will be collected in `your/path/to/random-forest/aletsch`. Run the following command to test and compare results of Aletsch and the other tools:
+Note: Ensure `run.stringtie2.sh` is completed before `run.st2merge.sh`, and `run.scallop.sh` before `run.sc2taco.sh`. Scripts may be adjusted for parallel processing with specified CPU core usage. BAM files for specific chromosomes are prepared using [samtools](http://www.htslib.org/doc/samtools.html), e.g., for extracting chr1:
 
 ```
-python3 test.py
+samtools view -b -F 4 -@ 10 -o "$chr1_bam" "$bam_file" 1
 ```
 
-Note that basic package `numpy`, `pandas` and `sklearn` should be installed. You may modify the python script tp change the pre-trained model. The output of `test.py` are saved in `your/path/to/random-forest/logs`. An example has been saved: `39.ensembl.chr1.(en+xx230+sc-human100+sc-xpress500&1066).sc-human100.other_chrs.log`, which is the result of Aletsch-Chr1 on SC-H1.
+Alternatively, assemble with all chromosomes and later extract chr1 results from the GTF file.
+
+# Step 4: Test with Aletsch's Pretrained Model and Compare
+
+Navigate to the `random-forest` directory and run `prepare.sh` as done in Step 3, e.g., `./prepare.sh xx891 2`. This will collect Aletsch's feature files in `your/path/to/random-forest/aletsch`.
+
+Download Aletsch's pretrained model from [Zenodo](https://doi.org/10.5281/zenodo.10602529), typically "Aletsch-ChrAll.ensembl.joblib". Execute the following command to test and compare the results:
+
+```
+cd your/path/to/random-forest
+./prepare.sh xx891 2 # Example for dataset "PRJNA489891_ensembl"
+python3 test.py -i xx891
+```
+
+Ensure you have the necessary Python packages (`numpy`, `pandas`, `sklearn`) installed. The `test.py` script can be modified to use a different pre-trained model, with outputs stored in `your/path/to/random-forest/logs`. An example log file, `Aletsch-Chr1.ensembl.sc-human100.other_chrs.log`, demonstrates the result of Aletsch-Chr1 on dataset SC-H1, including metrics like adjusted precision and pAUC for comparison.
